@@ -18,23 +18,55 @@ def view_contacts
   @contacts.each_with_index do |contact, i|
     puts "--------------" 
     puts "Contact Number #{i + 1}"
-    puts contact[:name]
-    puts contact[:email]
-    puts contact[:phone]
+    print "Name: "
+    puts  contact[:name]
+    print "Email: "
+    puts  contact[:email]
+    print "Phone: "
+    puts  contact[:phone]
     puts "-------------"
   end 
 end 
 
-def delete_contact
+def delete_contact(contact_info)
   puts "what contact would you like to delete? Choose a number"
   view_contacts
-  delete = gets.strip.to_i
-  @contact_info.delete_at {|contact| contact[i] == delete }
+  delete = gets.strip.to_i - 1
+  @contacts.delete_at(delete)
   puts "contact has been deleted"
   menu
 end 
 
+def edit_contact(contact_info)
+  puts "what contact would you like to edit? Choose a number"
+  view_contacts
+  edit = gets.strip.to_i - 1
+  puts "what would you like to update?"
+  choice = gets.strip
+  case choice 
+    when "name" 
+      puts "what is the new name?"
+      name = gets.strip 
+      @contacts[edit][:name] = name
+      puts "updating name"
+    when "email"
+      puts "what is the new email?"
+      email = gets.strip 
+      @contacts[edit][:email] = email
+      puts "updating email"
+    when "phone"
+      puts "what is the new phone number?"
+      phone = gets.strip 
+      @contacts[edit][:phone] = phone
+      puts "updating phone"
+    else 
+      puts "not valid"
+      menu
+    end
+end 
+
 def menu
+  puts "----------------"
   puts "1) All Contacts"
   puts "2) Create Contact"
   puts "3) Delete Contact"
@@ -50,9 +82,12 @@ def menu
     when "3"
       puts delete_contact(@contacts)
     when "4"
-      puts "edit contact"
-    else "5"
+      puts edit_contact(@contacts)
+    when "5"
       exit
+    else 
+     puts "not valid"
+     menu
   end 
   menu
 end 
