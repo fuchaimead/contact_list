@@ -29,7 +29,7 @@ def view_contacts
 end 
 
 def delete_contact(contact_info)
-  puts "what contact would you like to delete? Choose a number"
+  puts "What contact would you like to delete? Choose a number."
   view_contacts
   delete = gets.strip.to_i - 1
   @contacts.delete_at(delete)
@@ -38,31 +38,36 @@ def delete_contact(contact_info)
 end 
 
 def edit_contact(contact_info)
-  puts "what contact would you like to edit? Choose a number"
-  view_contacts
-  edit = gets.strip.to_i - 1
-  puts "what would you like to update?"
-  choice = gets.strip
-  case choice 
-    when "name" 
-      puts "what is the new name?"
-      name = gets.strip 
-      @contacts[edit][:name] = name
-      puts "updating name"
-    when "email"
-      puts "what is the new email?"
-      email = gets.strip 
-      @contacts[edit][:email] = email
-      puts "updating email"
-    when "phone"
-      puts "what is the new phone number?"
-      phone = gets.strip 
-      @contacts[edit][:phone] = phone
-      puts "updating phone"
-    else 
-      puts "not valid"
-      menu
-    end
+  if @contacts.length != 0 
+    puts "What contact would you like to edit? Choose a number"
+    view_contacts
+    edit = gets.strip.to_i - 1
+    puts "What would you like to update?"
+    choice = gets.strip
+    case choice 
+      when "name" 
+        puts "What is the new name?"
+        name = gets.strip 
+        @contacts[edit][:name] = name
+        puts "updating name"
+      when "email"
+        puts "What is the new email?"
+        email = gets.strip 
+        @contacts[edit][:email] = email
+        puts "updating email"
+      when "phone"
+        puts "What is the new phone number?"
+        phone = gets.strip 
+        @contacts[edit][:phone] = phone
+        puts "updating phone"
+      else 
+        puts "not valid"
+        menu
+      end
+  else 
+    puts "No contacts have been added."
+    menu
+  end 
 end 
 
 def menu
